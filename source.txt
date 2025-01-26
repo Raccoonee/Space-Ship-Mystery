@@ -1,0 +1,429 @@
+"Spaceship Mystery" by Devin
+
+	Release along with an interpreter, a website, cover art ("Space Ship") and the source text.
+
+Chapter 1 - Cafeteria Room
+
+When play begins:
+	say "You just woke up from a long nap in the Cafeteria. You are the electrician on board the ship. You remember that you were told by Captain Jack: 'The navigation systems are malfunctioning due to damaged wiring, and you need to fix them.'";
+	now John Smith is in the Electrical Locker;
+	now the Electrical Locker is closed.
+
+Instead of opening the Electrical Door when the Electrical Door is locked:
+	if the player has the electrical key:
+		now the Electrical Door is unlocked;
+		say "You unlock the door with the key.";
+		continue the action;
+	otherwise:
+		say "The door is locked. You need a key."
+
+[Cafeteria Room Items]
+A supply cabinet is a kind of container. A supply cabinet is usually openable and fixed in place.
+
+The Cafeteria is a room. "A large central area with tables and food dispensers. A supply cabinet is mounted on the wall."
+
+The cafeteria supply cabinet is a supply cabinet in the Cafeteria. "A metal cabinet for storing supplies."
+The food tray is a thing in the cafeteria supply cabinet.
+The coffee mug is a thing in the cafeteria supply cabinet.
+The electrical key is a thing in the cafeteria supply cabinet.
+
+The cafeteria table is a supporter in the Cafeteria. "A long metal table sits in the center of the room." 
+The description is "A sturdy metal table with attached bench seating."
+
+The food dispenser is a fixed in place thing in the Cafeteria. 
+The description is "A standard-issue food dispenser unit."
+
+The vending machine is a fixed in place thing in the Cafeteria. 
+The description is "A machine offering various snacks and drinks."
+
+Sarah Chen is a person in the Cafeteria. "Sarah, the ship's cook, is here preparing meals." 
+The description is "Sarah wears a standard crew uniform with a kitchen apron."
+Sarah Chen can be alive or dead. Sarah Chen is alive.
+
+Instead of attacking Sarah:
+	   if the player has the knife:
+		say "You viciously attack Sarah with the knife. As she falls, Jack witnesses this through the security cameras and immediately calls an emergency meeting. The evidence is clear - you're the killer.";
+		end the story saying "The crew votes unanimously. You are ejected into space for Sarah's murder.";
+	   otherwise:
+		say "Sarah easily deflects your attack. 'What are you doing?' she shouts, backing away."
+
+
+Chapter 2 - Electrical Room
+
+[Electrical Room Items]
+The Electrical Room is a room. "Filled with wiring panels and power systems. Cables snake across the ceiling."
+
+The Electrical Door is a door. The Electrical Door is east of the Cafeteria.
+The Electrical Room is east of the Electrical Door.
+Understand "electrical" or "cafe" as Electrical Door
+
+The Electrical Door is lockable and locked.
+The electrical key unlocks the Electrical Door.
+
+A locker is a kind of container. A locker is usually openable and fixed in place.
+The Electrical Locker is a locker in the Electrical Room. 
+The description of the Electrical Locker is "A tall metal locker with dark liquid seeping from underneath."
+
+The electrical panel is a fixed in place thing in the Electrical Room. 
+The description is "A complex panel of circuits and switches."
+
+The power console is a fixed in place thing in the Electrical Room. 
+The description is "A console monitoring power distribution."
+
+The loose wires are things in the Electrical Room. 
+The description is "Several exposed wires dangle dangerously. They really need to be fixed for the navigation."
+The loose wires can be fixed or broken. The loose wires are broken.
+
+Instead of taking the loose wires:
+   say "You can't take the wires - they're part of the ship's electrical system. You need to fix them in place."
+
+The toolbox is a container in the Electrical Room. 
+The description is "A red metal toolbox."
+
+The wrench is a thing in the toolbox.
+The screwdriver is a thing in the toolbox.
+The knife is a thing in the toolbox.
+The description of the knife is "The knife is covered in blood."
+
+John Smith is a person. John Smith can be alive or dead. John Smith is dead.
+The description of John Smith is "The body of John Smith lies crammed into the locker, wearing a security uniform. There appears to be signs of a struggle with stab wounds."
+
+Instead of taking John Smith:
+	say "Better not disturb the body until an investigation is conducted."
+
+After examining the Electrical Locker for the first time:
+	if John Smith is in the Electrical Locker:
+		say "You discover John Smith's body inside! You should tell Jack about this."
+
+The body_discovered is a truth state that varies. The body_discovered is false.
+
+After examining the Electrical Locker for the first time:
+	if John Smith is in the Electrical Locker:
+		now body_discovered is true;
+		say "You discover John Smith's body inside! You should tell someone about this."
+
+After opening the Electrical Locker for the first time:
+	if John Smith is in the Electrical Locker:
+		now body_discovered is true;
+		say "You discover John Smith's body inside! You should tell someone about this."
+
+Fixing is an action applying to one thing.
+Understand "fix [something]" or "repair [something]" as fixing.
+
+Instead of fixing the loose wires:
+	if the player has the wrench and the player has the screwdriver:
+		if the loose wires are broken:
+			now the loose wires are fixed;
+			say "You successfully repair the wiring. The navigation systems should work now.";
+		otherwise:
+			say "The wires are already fixed.";
+	otherwise:
+		say "You'll need both a wrench and screwdriver to fix these."
+
+Chapter 3 - Navigation Room
+
+[Navigation Room Items]
+The Navigation Room is a room. "A high-tech bridge with a large viewscreen dominating the front wall. Star charts and navigation equipment fill the space."
+
+The Navigation Door is a door. The Navigation Door is north of the Cafeteria.
+The Navigation Room is north of the Navigation Door. 
+Understand "nav" or "cafe" as Navigation Door
+
+The captain's chair is an enterable supporter in the Navigation Room. 
+The description is "A comfortable command chair with various controls built into the armrests."
+
+The navigation console is a fixed in place thing in the Navigation Room. 
+The description is "The main flight control system with holographic displays."
+
+The star chart is a fixed in place thing in the Navigation Room. 
+The description is "A detailed holographic map showing nearby star systems."
+
+The control panel is a fixed in place thing in the Navigation Room. 
+The description is "Various switches and indicators monitoring ship systems."
+
+Jack Thompson is a person in the Navigation Room. "Jack stands at the navigation console." 
+The description is "A young navigator with a worried expression. His uniform indicates he's fairly new to the crew."
+Jack Thompson can be alive or dead. Jack Thompson is alive.
+
+told_jack_about_body is a truth state that varies. told_jack_about_body is false.
+
+Every turn when the player is in the Navigation Room:
+	if told_jack_about_body is false:
+		if the loose wires are broken:
+			say "Jack looks up from the console. 'Have you fixed the wires yet? The navigation systems won't work until those are repaired.'";
+		else:
+			say "Jack nods at you. 'Great work on fixing those wires. The navigation is fully functional now. If you're ready to head home, just say fly home.'"
+
+Telling Jack to fly home is an action applying to nothing.
+Understand "tell jack to fly home" or "instruct jack to fly home" or "fly home" as telling Jack to fly home.
+
+Check telling Jack to fly home:
+	if the player is not in the Navigation Room:
+		say "You need to be in the Navigation Room to tell Jack to fly home." instead.
+
+Instead of telling Jack to fly home:
+	if body_discovered is false:
+		end the story saying "You left without discovering John's murder. Emma kills the rest of the crew during the journey home.";
+	else if the loose wires are broken:
+		say "The navigation systems still need repairs, and you need to figure out what happened to John.";
+	else:
+		say "Though the wires are fixed, you can't leave yet. You need to investigate John's murder and find evidence of who did it."
+
+Telling Jack about death is an action applying to nothing.
+Understand "tell jack about body" or "tell jack about john" or "tell jack john is dead" or "tell jack about dead body" as telling Jack about death.
+
+Instead of telling Jack about death:
+	   if the player is not in the Navigation Room:
+		   say "You need to be in the Navigation Room to tell Jack." instead;
+	   if body_discovered is false:
+		   say "You haven't found any body yet." instead;
+	   now told_jack_about_body is true;
+	   say "Jack's face goes pale. 'John is dead? We need to find out who did this. Look for evidence in the Security Room and Medical Bay. We are not leaving until we know who the killer is.'"
+
+Telling Jack about evidence is an action applying to nothing.
+Understand "tell jack about evidence" or "show jack evidence" or "accuse emma" or "prove emma guilty" or "show video tape" as telling Jack about evidence.
+
+Check telling Jack about evidence:
+	   if the player is not in the Navigation Room:
+		   say "You need to be in the Navigation Room to tell Jack." instead;
+	   if the player does not have the video tape:
+		   say "You need video evidence to prove the killer's guilt." instead;
+	   if told_jack_about_body is false:
+		   say "You should tell Jack about John's murder first." instead.
+
+Carry out telling Jack about evidence:
+	   if the player has the video tape:
+		   say "You show Jack the security footage. His face turns grim as he watches Emma murder John. 'I... I can't believe it. We have to stop her.' Jack hits the emergency button. Emma is swiftly captured and ejected into space.";
+		   end the story finally saying "You've exposed the killer. The crew is safe."
+		
+Instead of attacking Jack:
+	   if the player has the knife:
+		   say "You suddenly attack Jack with the knife. As he collapses at the navigation console, Sarah witnesses this through the security feed and calls an emergency meeting. The evidence against you is undeniable.";
+		   end the story saying "The crew votes unanimously. You are ejected into space for Jack's murder.";
+	   otherwise:
+		   say "Jack dodges your attack and hits the emergency alarm. 'What are you doing?' he shouts."
+		
+Chapter 4 - Security Room
+
+[Security Room Items]
+The Security Room is a room. "A dimly lit room dominated by glowing monitor screens. Security equipment lines the walls."
+
+The Security Door is a door. The Security Door is west of the Cafeteria.
+The Security Room is west of the Security Door.
+Understand "security" or "cafe" as Security Door
+
+The security desk is a supporter in the Security Room. 
+The description is "A large desk with multiple screens built into it."
+
+The security monitor is a fixed in place thing in the Security Room. 
+The description is "[if body_discovered is true]Several screens showing camera feeds from around the ship. The monitors can play security footage if you have any recordings.[otherwise]Several screens showing camera feeds from around the ship. One shows the cafeteria, another the electrical room, and others cycle through different areas.[end if]"
+
+The security console is a fixed in place thing in the Security Room. 
+The description is "A control panel for accessing camera feeds and security systems."
+
+The weapon locker is a container in the Security Room. The weapon locker is locked and openable and fixed in place.
+
+The security badge is a thing in the Security Room. 
+The description is "Security Badge: John Smith."
+
+The keycard is a thing in the Security Room. 
+The description is "A general keycard that everyone has. Doesn't appear to be special."
+
+The rope is a thing in the Security Room. 
+The description is "A sturdy length of rope. This could definitely be used to tie up someone."
+
+The security camera controls is a device in the Security Room. 
+The security camera controls can be switched on or switched off. 
+The security camera controls is switched on.
+The security camera controls is fixed in place.
+
+Playing is an action applying to two things.
+Understand "play [something] on [something]" or "use [something] with [something]" or "insert [something] in [something]"  or "use [something] on [something]"as playing.
+
+Check playing:
+	if the second noun is not the security monitor, say "That wouldn't achieve anything." instead;
+	if the noun is not the video tape, say "That's not something you can play." instead;
+	if body_discovered is false, say "You should investigate the Electrical Room first." instead.
+
+Carry out playing:
+	   if the noun is the video tape and the second noun is the security monitor:
+		   if the security camera controls is switched on:
+			   say "You insert the security tape into the monitor. The footage clearly shows Emma entering the Electrical Room shortly after John. There's a struggle, then she exits alone, wiping blood from her hands.";
+			   now the player has the security footage;
+		   otherwise:
+			   say "The security monitor needs to be powered on first."
+
+The security footage is a thing.
+The description of the security footage is "The recorded footage clearly shows Emma attacking John in the Electrical Room."
+
+Chapter 5 - Medical Room
+
+[Medical Room Items]
+The Medical Bay is a room. "A sterile medical facility with equipment and beds. The antiseptic smell fills the air."
+
+The Medical Door is a door. The Medical Door is south of the Cafeteria.
+The Medical Bay is south of the Medical Door.
+Understand "Medical" or "cafe" as Medical Door
+
+The medical bed is an enterable supporter in the Medical Bay. 
+The description is "A standard medical bed with monitoring equipment."
+
+The medical cabinet is a container in the Medical Bay. 
+The medical cabinet is openable and fixed in place.
+The bandages are in the medical cabinet.
+The medicine bottle is in the medical cabinet.
+The syringe is in the medical cabinet.
+
+The video tape is in the medical cabinet. 
+The description is "Looks like it's from security. Maybe it can be used there."
+
+The medical scanner is a fixed in place thing in the Medical Bay. 
+The description is "A sophisticated diagnostic device."
+
+The health monitor is a fixed in place thing in the Medical Bay. 
+The description is "Displays vital signs of patients."
+
+Nurse Emma Wilson is a person in the Medical Bay. "Emma is organizing medical supplies." 
+The description is "An experienced nurse in a white uniform, looking focused on her duties."
+Nurse Emma Wilson can be alive or dead. Nurse Emma Wilson is alive.
+
+[attacking emma]
+Instead of attacking Emma:
+	   if the player has the knife and the player has the rope:
+		   say "Using both the knife and rope, you manage to subdue Emma and tie her up securely. She struggles but can't break free. The evidence against her is clear.";
+		   end the story finally saying "Congratulations! You've captured the killer and saved the crew!";
+	   otherwise if the player has the knife:
+		   say "You manage to fend off Emma's attack with your knife, but she flees into the ship before you can subdue her.";
+		   now Emma is nowhere;
+	   otherwise:
+		   end the story saying "Emma overpowers you with surprising strength, plunging a scalpel into your chest. The ship will be Emma's killing ground now...";
+
+Every turn:
+	   if Emma is nowhere:
+		 if a random chance of 1 in 4 succeeds:
+			end the story saying "Emma sneaks up behind you and plunges a scalpel into your back. She continues to swiftly stab you 28 times. You never should have confronted her without being fully prepared."
+			
+
+Chapter 6 - Questioning
+
+Emma's suspicion is a number that varies. Emma's suspicion is 0.
+
+Every turn when Emma's suspicion >= 3:
+	if Emma is in location:
+		say "Emma realizes she's said too much. She quickly leaves the room!";
+		now Emma is nowhere.
+
+Interrogative is a kind of value. The interrogatives are who, what, when, where, how, and why.
+Current question is an interrogative that varies.
+
+After reading a command:
+	if the player's command includes "[interrogative]", now the current question is the interrogative understood.
+	
+Understand "ask [someone] [text]" as asking it about.
+Understand "question [someone] [text]" as asking it about
+
+
+
+Table of Sarah Responses
+topic	question type	reply
+"emma"	what	"'Emma? She's usually quiet but professional. Though lately she's been acting strange, especially around John.'"
+"emma"	when	"'She's been acting odd since last week. Right around when John started investigating something.'"
+"emma"	where	"'Usually in the medical bay, but I've seen her wandering near electrical recently.'"
+"john"	what	"'John was a good security officer. Always made sure we were safe. I can't believe he's gone.'"
+"john"	when	"'I last saw him yesterday. He seemed worried about something.'"
+"job"	what	"'I'm the ship's cook. Been here for five years now.'"
+"job"	how	"'I prepare meals for the crew and manage our food supplies.'"
+"crew"	who	"'There's me, Emma our nurse, Jack our navigator, and... well, John was security.'"
+"food"	what	"'I prepare three meals daily for the crew.'"
+"ship"	what	"'We're on a deep space cargo vessel. Been my home for years now.'"
+"atmosphere"	what	"'Things have been tense lately. Especially after John started his investigation.'"
+"schedule"	what	"'I'm usually in the kitchen during meal times. Late nights I do inventory.'"
+"inventory"	what	"'Everything's tracked carefully. Though items have gone missing lately.'"
+"rumors"	what	"'Well... Emma and John had been arguing a lot. About missing supplies.'"
+"supplies"	what	"'Medical supplies, kitchen tools... things keep disappearing.'"
+"kitchen"	where	"'The kitchen's connected to the cafeteria. That's where I spend most of my time.'"
+"knife"	what	"'One of my kitchen knives went missing recently. John was investigating that.'"
+"blood"	what	"'Blood? I... I did notice some stains near the electrical room...'"
+
+Table of Jack Responses
+topic	question type	reply
+"emma"	who	"'Emma's been our nurse for three years. Though between us, I've noticed her and John arguing recently.'"
+"emma"	when	"'They had a big fight just yesterday. Something about security protocols.'"
+"emma"	why	"'John was investigating some missing medical supplies. Emma didn't like that.'"
+"john"	who	"'John was one of our best. He mentioned being worried about something last week.'"
+"john"	where	"'He was headed to the electrical room last I saw him. Said he needed to check something.'"
+"job"	what	"'I handle navigation and ship controls. New to the crew but learning fast.'"
+"job"	how	"'I plot our course, monitor systems, keep us on track.'"
+"crew"	who	"'Small crew - Sarah, Emma, me, and John... before the incident.'"
+"ship"	what	"'Deep space cargo vessel. Been having electrical issues lately.'"
+"atmosphere"	what	"'Everyone's on edge. John was investigating something before...'"
+"schedule"	what	"'I work bridge shifts, monitor systems. Been noticing odd patterns lately.'"
+"security"	how	"'John set up cameras everywhere. Said he was gathering evidence.'"
+"systems"	what	"'Navigation's down due to electrical issues. Suspicious timing.'"
+"repairs"	what	"'The electrical system needs fixing. John thought it was sabotage.'"
+"video"	what	"'The security footage? Some of it's gone missing, especially from the electrical room.'"
+"tools"	what	"'The toolbox in electrical had some strange stains on it recently.'"
+
+Table of Emma Responses
+topic	question type	reply	suspicion
+"john"	what	"'What about John? I... I haven't seen him today.' Her nervousness is obvious."	1
+"john"	where	"'How should I know where he is? I'm not his keeper!' Her voice trembles."	2
+"john"	when	"'I... I haven't seen him since... I mean, I don't remember...' She starts sweating."	2
+"job"	what	"'I'm the medical officer. Keep everyone healthy.'"	0
+"job"	how	"'Just routine medical care... nothing unusual...'"	1
+"crew"	who	"'We're a small crew. I prefer keeping to myself.'"	1
+"ship"	what	"'Just a standard cargo vessel. Nothing special.'"	0
+"atmosphere"	what	"'Everything's fine! Why do you ask?'"	2
+"schedule"	what	"'I stick to medical bay... mostly.'"	1
+"security"	how	"'The cameras? They're unreliable. Don't trust them.'"	2
+"systems"	what	"'Electrical issues? I wouldn't know about that!'"	2
+"repairs"	what	"'The electrical room? I never go there! Never!'"	3
+"blood"	what	"'Blood? What blood? I haven't seen any blood!' She starts shaking."	3
+"knife"	what	"'Knives? Only in the kitchen.' Her hand touches her pocket."	2
+"tools"	what	"'The toolbox? Why would I know anything about that?'"	2
+"supplies"	what	"'Everything is accounted for! Stop asking questions!'"	2
+
+After asking Sarah about something:
+	repeat through the Table of Sarah Responses:
+		if the topic understood includes topic entry:
+			if the current question is the question type entry:
+				say "[reply entry][paragraph break]";
+				rule succeeds;
+	say "'I don't know anything about that.'"
+
+After asking Jack about something:
+	repeat through the Table of Jack Responses:
+		if the topic understood includes topic entry:
+			if the current question is the question type entry:
+				say "[reply entry][paragraph break]";
+				rule succeeds;
+	say "'I don't know anything about that.'"
+
+After asking Emma about something:
+	repeat through the Table of Emma Responses:
+		if the topic understood includes topic entry:
+			if the current question is the question type entry:
+				say "[reply entry][paragraph break]";
+				increase Emma's suspicion by suspicion entry;
+				rule succeeds;
+	say "'I don't know anything about that.'"
+
+Chapter 7 - Greeting
+
+[Greeting]
+Greeting is an action applying to one visible thing.
+Understand "greet [someone]" or "say hello to [someone]" or "hello [someone]" or "hi [someone]"  or "talk [someone]" or "talk  to[someone]" as greeting.
+
+Instead of greeting Sarah:
+	say "Sarah looks up from her work. 'Oh, hello! I'm Sarah, the ship's cook. You can ask me questions using WHO, WHAT, WHEN, WHERE, HOW, or WHY. Or ask about specific topics. I might know something about the crew or recent events.' (Make sure to include ask Sarah before your question)"
+
+Instead of greeting Jack:
+	say "Jack turns from the navigation console. 'Hey there! I'm Jack, ship's navigator. Feel free to ask me questions using WHO, WHAT, WHEN, WHERE, HOW, or WHY. Or tell me ABOUT anything or show me anything you notice.' (Make sure to include ask jack before your question)"
+
+Instead of greeting Emma:
+	if body_discovered is true:
+		say "Emma nervously looks up. 'Oh... hi. I'm Emma, the ship's nurse. You can ask me questions if you need to...' She seems uncomfortable.";
+	otherwise:
+		say "'Hello, I'm Emma, the medical officer. You can ask me questions using WHO, WHAT, WHEN, WHERE, HOW, or WHY.' (Make sure to include ask Emma before your question)"
+
+
